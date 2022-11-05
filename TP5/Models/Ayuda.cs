@@ -14,7 +14,7 @@ class Ayuda
     public List<Cadete> DevolverCadetes()
     {
         List<Cadete> ListadoCadetes = new List<Cadete>();
-        string[] lineas = File.ReadAllLines(@"C:\TALLER 2\tl2-tp4-2022-Tahiel24\TP4\CSV\Cadetes.csv");
+        string[] lineas = File.ReadAllLines(@"C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\CSV\Cadetes.csv");
 
         foreach (var i in lineas)
         {
@@ -28,14 +28,14 @@ class Ayuda
     }
 
     public void GuardarCadete(Cadete cadete){
-        string path= @"C:\TALLER 2\tl2-tp4-2022-Tahiel24\TP4\CSV\Cadetes.csv";
+        string path= @"C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\CSV\Cadetes.csv";
         List<string>cadena=new List<string>();
         cadena.Add(cadete.Id+","+cadete.Nombre+","+cadete.Direccion+","+cadete.Telefono1);
         File.AppendAllLines(path,cadena);
     }
 
     public void EliminarCadetes(int id){
-        string path= @"C:\TALLER 2\tl2-tp4-2022-Tahiel24\TP4\CSV\Cadetes.csv";
+        string path= @"C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\CSV\Cadetes.csv";
         List<string>ListaCadenas=new List<string>();
         string[] contenidoActual = File.ReadAllLines(path);
         File.Delete(path);
@@ -57,5 +57,7 @@ class Ayuda
         }
         File.AppendAllLines(path,ListaCadenas);
     }
+
+
 }
 

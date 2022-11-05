@@ -1,3 +1,4 @@
+@model TP5.ViewModels.CadetesViewModels;
 @{
     ViewData["Title"] = "CadeteRecibir Page";
 }
@@ -5,18 +6,16 @@
 <h3>Alta de cadetes</h3>
 <!-- Asp controller: Carpeta del controlador , asp-action: Pagina a mostrar/donde mandar los datos-->
 <form asp-controller="Cadete" asp-action="AgregarCadetes" method="post">
-    <label for="n">Nombre: 
-        <input type="text" name="Nombre" id="n">
+    <label asp-for="@Model.Nombre">Nombre: 
+        <input type="text" asp-for="@Model.Nombre">
     </label>
-    <label for="d">Direccion: 
-        <input type="text" name="Direccion" id="d">
+    <label asp-for="@Model.Direccion">Direccion: 
+        <input type="text" asp-for="@Model.Direccion">
     </label>
-    <label for="t">Telefono: 
-        <input type="text" name="Telefono1" id="t">
-    </label>
-    <label for="i">ID: 
-        <input type="number" name="Id" id="i">
+    <label asp-for="@Model.Telefono1" >Telefono: 
+        <input type="text" asp-for="@Model.Telefono1">
     </label>
     <input type="submit" value="Enviar">
 </form>
 
+@section Scripts { <partial name="_ValidationScriptsPartial" /> } 

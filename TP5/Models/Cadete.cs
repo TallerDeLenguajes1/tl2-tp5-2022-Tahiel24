@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TP5.ViewModels;
 
-public abstract class Persona
+
+public class Cadete
 {
     private int id;
     private string nombre;
@@ -16,19 +18,7 @@ public abstract class Persona
     public string Direccion { get => direccion; set => direccion = value; }
     public string Telefono1 { get => Telefono; set => Telefono = value; }
 
-}
-
-class Cadete : Persona
-{
-    private List<Pedido> listadopedidos = new List<Pedido>();
-    private List<Pedido> listadoEntregados = new List<Pedido>();
-    private List<Pedido> listadoNoEntregados= new List<Pedido>();
-
-    public List<Pedido> ListadoPedidos { get => listadopedidos; set => listadopedidos = value; }
-    public List<Pedido> ListadoEntregados { get => listadoEntregados; set => listadoEntregados = value; }
-    public List<Pedido> ListadoNoEntregados { get => listadoNoEntregados; set => listadoNoEntregados = value; }
-    
-    public Cadete(int id, string nom, string direc,string tel)
+    public Cadete(int id, string nom, string direc, string tel)
     {
         Id = id;
         Nombre = nom;
@@ -36,6 +26,10 @@ class Cadete : Persona
         Telefono1 = tel;
     }
 
+    public Cadete()
+    {
+        
+    }
 }
 
 class Pedido
@@ -52,38 +46,18 @@ class Pedido
     public string Cliente { get => cliente; set => cliente = value; }
     public string Dir { get => dir; set => dir = value; }
 
-    string[]obsA={"Sin sal","Agregar Aderezo", "Sin Ketchup", "Agrandar pedido de papas", "Extra carne"};
+    string[] obsA = { "Sin sal", "Agregar Aderezo", "Sin Ketchup", "Agrandar pedido de papas", "Extra carne" };
     Random r = new Random();
 
-    public Pedido(string Nom,string dirN){
-        Nro=r.Next(0,101);
-        Obs=obsA[r.Next(0,5)];
-        //El estado sera: 0:entregado, 1:No entregado
-        Estado=r.Next(0,2);
-        Cliente=Nom;
-        Dir=dirN;
-    }
-}
-
-class Cliente : Persona
-{
-    private string DatosReferenciaDireccion;
-
-    public string DatosReferenciaDireccion1 { get => DatosReferenciaDireccion; set => DatosReferenciaDireccion = value; }
-
-    string[] nombresA = { "Agustin", "Leandro", "Jose", "Juan", "Pedro", "Fransisco" };
-    string[] direccionA = { "Asuncion 320", "Corrientes 234", "Av. Peron 256", "Peru 1921", "25 de Mayo 452" };
-    string[] TelefonoA = { "32427835", "87382242", "78263930", "32423545", "23546748" };
-    string[] referencias = { "Porton negro y pino enfrente", "Paredon blanco", "Auto Negro estacionado dentro", "Plantas en macetas por el jardin", "Ligustrines" };
-
-    Random r = new Random();
-    public Cliente()
+    public Pedido(string Nom, string dirN)
     {
-        Id = r.Next(0, 1000);
-        Nombre = nombresA[r.Next(0, 6)];
-        Direccion = direccionA[r.Next(0, 5)];
-        Telefono1 = TelefonoA[r.Next(0, 5)];
-        DatosReferenciaDireccion1 = referencias[r.Next(0, 5)];
+        Nro = r.Next(0, 101);
+        Obs = obsA[r.Next(0, 5)];
+        //El estado sera: 0:entregado, 1:No entregado
+        Estado = r.Next(0, 2);
+        Cliente = Nom;
+        Dir = dirN;
     }
 }
+
 

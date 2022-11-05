@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TP5.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TP5.ViewModels;
 using AutoMapper;
@@ -47,11 +46,14 @@ public class CadeteController : Controller
     }
 
     [HttpPost]
-    public RedirectToActionResult AgregarCadetes(string Nombre, string Direccion, string Telefono1,int Id)
+    public RedirectToActionResult AgregarCadetes(CadetesViewModels cadeteView)
     {
-        Ayuda nuevaAyuda=new Ayuda();
-        Cadete nuevoCadete= new Cadete(Id,Nombre,Direccion,Telefono1);
-        nuevaAyuda.GuardarCadete(nuevoCadete);
+        if(ModelState.IsValid){
+            Cadete nuevoCadete= _mapper.Map<Cadete>(cadeteView);
+            Ayuda nuevaAyuda=new Ayuda();
+            nuevaAyuda.GuardarCadete(nuevoCadete);
+        }
+        
         return RedirectToAction("MostrarCadetesPrincipal");
     }
 

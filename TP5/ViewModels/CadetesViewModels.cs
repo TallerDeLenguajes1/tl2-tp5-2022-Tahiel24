@@ -33,4 +33,17 @@ public class CadetesViewModels
         Telefono1 = tel;
         Id = id;
     }
+
+    public CadetesViewModels()
+    {
+     
+        string[]lineas=File.ReadAllLines(@"CSV/Cadetes.csv");
+        if(lineas.Length==0)
+        {
+            this.Id=0;
+        }else{
+            string[] lineaSeparada= lineas[lineas.Length-1].Split(",");
+            this.Id=(Convert.ToInt32(lineaSeparada[0]))+1;
+        }
+    }
 }

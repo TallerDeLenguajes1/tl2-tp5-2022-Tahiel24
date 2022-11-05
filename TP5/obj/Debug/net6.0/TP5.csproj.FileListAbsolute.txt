@@ -24,3 +24,6 @@ C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\obj\Debug\net6.0\refint\TP5.dll
 C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\obj\Debug\net6.0\TP5.pdb
 C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\obj\Debug\net6.0\TP5.genruntimeconfig.cache
 C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\obj\Debug\net6.0\ref\TP5.dll
+C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\bin\Debug\net6.0\AutoMapper.dll
+C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\obj\Debug\net6.0\TP5.csproj.CopyComplete
