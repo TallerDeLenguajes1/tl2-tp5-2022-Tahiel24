@@ -1,0 +1,38 @@
+@model List<TP5.Models.Cadete>;
+
+@{
+    ViewData["Title"] = "Listado de Cadetes";
+}
+
+<main>
+    <section class="contenedor-boton">
+        <ul>
+            <li>
+                <a href="Cadete/CadeteRecibir">Alta de Cadetes</a>
+            </li>
+            <li>
+                <a href="Cadete/IntermedioBorrar">Baja de Cadetes</a>
+            </li>
+        </ul>
+    </section>
+
+    <h3 class="listado-titulo">Listado de cadetes</h3>
+
+    <table class="tabla-primera">
+        <tr>
+            <th>ID del Cadete</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>@item.Direccion</td>
+                <td>@item.Telefono1</td>
+            </tr>
+        }
+    </table>
+</main>

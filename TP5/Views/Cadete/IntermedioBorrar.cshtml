@@ -1,0 +1,31 @@
+@model List<TP5.Models.Cadete>;
+
+@{
+    ViewData["Title"] = "Borrar Cadetes";
+}
+
+<h3>Listado de los cadetes</h3>
+<table>
+    <tr>
+        <th>ID del Cadete</th><th>Nombre</th><th>Direccion</th><th>Telefono</th>
+    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td><td>@item.Nombre</td><td>@item.Direccion</td><td>@item.Telefono1</td>
+            </tr>
+        }
+</table>
+
+<h3>Baja de cadetes</h3>
+<form asp-controller="Cadete" asp-action="EliminarCadetes" method="post">
+    <label for="i">ID: 
+        <select name="Id" id="i">
+            @foreach (var item in Model)
+            {
+                <option value="@item.Id"> @item.Id</option>
+            }
+        </select>
+    </label>
+    <input type="submit" value="Enviar">
+</form>
