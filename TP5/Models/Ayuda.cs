@@ -58,6 +58,31 @@ class Ayuda
         File.AppendAllLines(path,ListaCadenas);
     }
 
+    public void EditarCadetes(Cadete cadete){
+        string path=@"CSV\Cadetes.csv";
+        List<string>ListadoCadenas=new List<string>();
+        string[] contenidoActual = File.ReadAllLines(path);
+        File.Delete(path);
+        string cadena2;
+        for (int i = 0; i < contenidoActual.Length; i++)
+        {
+            string[]linea=contenidoActual[i].Split(",");
+            int Id=Convert.ToInt32(linea[0]);
+            cadena2=Id+","+cadete.Nombre+","+cadete.Direccion+","+cadete.Telefono1
+            if(Id==cadete.Id){
+                ListadoCadenas.Add(cadena2);   
+            }else{
+                ListadoCadenas.Add(contenidoActual[i])
+            }
+        }
+        File.AppendAllLines(path,ListadoCadenas);
+    }
 
+    public Cadete devolverCadete(string id){
+        int Id=Convert.ToInt32(id);
+        string path=@"CSV\Cadetes.csv";
+        string[] contenidoActual = File.ReadAllLines(path);
+        
+    }
 }
 

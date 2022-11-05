@@ -1,4 +1,5 @@
 @model List<TP5.Models.Cadete>;
+@using TP5.ViewModels;
 
 @{
     ViewData["Title"] = "Listado de Cadetes";
@@ -32,6 +33,7 @@
                 <td>@item.Nombre</td>
                 <td>@item.Direccion</td>
                 <td>@item.Telefono1</td>
+                <td><a asp-controller="Cadete" asp-action="CadetesEditar" asp-route-id="@item.Id">Editar</a></td>
             </tr>
         }
     </table>

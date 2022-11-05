@@ -1,0 +1,22 @@
+@model TP5.ViewModels.CadetesViewModels;
+@{
+    ViewData["Title"] = "Editar Cadetes";
+}
+
+<h3>Editado de cadetes</h3>
+<!-- Asp controller: Carpeta del controlador , asp-action: Pagina a mostrar/donde mandar los datos-->
+<form asp-controller="Cadete" asp-action="EditarCadetes" method="post">
+    <input asp-for="@Model.Id" value="@Model.Id" hidden>
+    <label asp-for="@Model.Nombre">Nombre: 
+        <input type="text" asp-for="@Model.Nombre" value="@Model.Nombre">
+    </label>
+    <label asp-for="@Model.Direccion">Direccion: 
+        <input type="text" asp-for="@Model.Direccion" value="Model.Direccion">
+    </label>
+    <label asp-for="@Model.Telefono1" >Telefono: 
+        <input type="text" asp-for="@Model.Telefono1" value="Model.Telefono1">
+    </label>
+    <input type="submit" value="Enviar">
+</form>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> } 

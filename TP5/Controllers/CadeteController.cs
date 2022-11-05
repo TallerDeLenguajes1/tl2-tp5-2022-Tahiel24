@@ -57,6 +57,26 @@ public class CadeteController : Controller
         return RedirectToAction("MostrarCadetesPrincipal");
     }
 
+    [HttpPost]
+    
+    public RedirectToActionResult EditarCadetes(CadetesViewModels cadeteView)
+    {
+        if(ModelState.IsValid){
+            Cadete nuevoCadete= _mapper.Map<Cadete>(cadeteView);
+            Ayuda nuevaAyuda=new Ayuda();
+            nuevaAyuda.EditarCadetes(nuevoCadete);
+        }
+        
+        return RedirectToAction("MostrarCadetesPrincipal");
+    }
+
+    [HttpGet]
+    [Route("/Cadete/EditarCadetes/{Id}")]    
+    public RedirectToActionResult EditarCadetes(string Id)
+    {
+        
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
