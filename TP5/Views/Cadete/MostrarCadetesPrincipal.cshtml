@@ -11,9 +11,6 @@
             <li>
                 <a href="Cadete/CadeteRecibir">Alta de Cadetes</a>
             </li>
-            <li>
-                <a href="Cadete/IntermedioBorrar">Baja de Cadetes</a>
-            </li>
         </ul>
     </section>
 
@@ -33,7 +30,7 @@
                 <td>@item.Nombre</td>
                 <td>@item.Direccion</td>
                 <td>@item.Telefono1</td>
-                <td><a asp-controller="Cadete" asp-action="CadetesEditar" asp-route-id="@item.Id">Editar</a></td>
+                <td><a asp-controller="Cadete" asp-action="EditarCadetes" asp-route-id="@item.Id">Editar</a></td><td><a asp-controller="Cadete" asp-action="EliminarCadetes" asp-route-id="@item.Id">Borrar</a></td>
             </tr>
         }
     </table>

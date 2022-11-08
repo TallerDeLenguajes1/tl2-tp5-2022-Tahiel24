@@ -3,17 +3,19 @@
     ViewData["Title"] = "CadeteRecibir Page";
 }
 
+
+
 <h3>Alta de cadetes</h3>
 <!-- Asp controller: Carpeta del controlador , asp-action: Pagina a mostrar/donde mandar los datos-->
 <form asp-controller="Cadete" asp-action="AgregarCadetes" method="post">
     <label asp-for="@Model.Nombre">Nombre: 
-        <input type="text" asp-for="@Model.Nombre">
+        <input type="text" asp-for="@Model.Nombre" >
     </label>
     <label asp-for="@Model.Direccion">Direccion: 
-        <input type="text" asp-for="@Model.Direccion">
+        <input type="text" asp-for="@Model.Direccion" >
     </label>
     <label asp-for="@Model.Telefono1" >Telefono: 
-        <input type="text" asp-for="@Model.Telefono1">
+        <input type="text" asp-for="@Model.Telefono1" >
     </label>
     <input type="submit" value="Enviar">
 </form>

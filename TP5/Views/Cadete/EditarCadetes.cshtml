@@ -3,18 +3,20 @@
     ViewData["Title"] = "Editar Cadetes";
 }
 
+<p>@Model.Nombre</p>
+<p>@Model.Id</p>
+
 <h3>Editado de cadetes</h3>
 <!-- Asp controller: Carpeta del controlador , asp-action: Pagina a mostrar/donde mandar los datos-->
-<form asp-controller="Cadete" asp-action="EditarCadetes" method="post">
-    <input asp-for="@Model.Id" value="@Model.Id" hidden>
+<form asp-controller="Cadete" asp-action="EditCad" method="post">
     <label asp-for="@Model.Nombre">Nombre: 
-        <input type="text" asp-for="@Model.Nombre" value="@Model.Nombre">
+        <input type="text" asp-for="@Model.Nombre" value="@Model.Nombre" >
     </label>
     <label asp-for="@Model.Direccion">Direccion: 
-        <input type="text" asp-for="@Model.Direccion" value="Model.Direccion">
+        <input type="text" asp-for="@Model.Direccion" value="@Model.Direccion" >
     </label>
     <label asp-for="@Model.Telefono1" >Telefono: 
-        <input type="text" asp-for="@Model.Telefono1" value="Model.Telefono1">
+        <input type="text" asp-for="@Model.Telefono1" value="@Model.Telefono1" >
     </label>
     <input type="submit" value="Enviar">
 </form>

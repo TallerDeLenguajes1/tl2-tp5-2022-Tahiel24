@@ -21,7 +21,7 @@ public class CadetesViewModels
     public string Direccion { get; set; }
 
     [Required]
-    [Phone]
+    [StringLength(100)]
     [Display(Name = "Telefono del Cadete")]
     public string Telefono1 { get; set; }
 
@@ -46,4 +46,6 @@ public class CadetesViewModels
             this.Id=(Convert.ToInt32(lineaSeparada[0]))+1;
         }
     }
+
 }
+

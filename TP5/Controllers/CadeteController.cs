@@ -37,11 +37,12 @@ public class CadeteController : Controller
         return View(listaCadetes);
     }
     
-    [HttpPost]
-    public RedirectToActionResult EliminarCadetes(int Id)
+    [HttpGet]
+    public RedirectToActionResult EliminarCadetes(string Id)
     {   
+        int idC=Convert.ToInt32(Id);
         Ayuda nuevaAyuda=new Ayuda();
-        nuevaAyuda.EliminarCadetes(Id);
+        nuevaAyuda.EliminarCadetes(idC);
         return RedirectToAction("MostrarCadetesPrincipal");
     }
 
@@ -58,23 +59,29 @@ public class CadeteController : Controller
     }
 
     [HttpPost]
-    
-    public RedirectToActionResult EditarCadetes(CadetesViewModels cadeteView)
+    public RedirectToActionResult EditCad(CadetesViewModels cadeteView)
     {
         if(ModelState.IsValid){
-            Cadete nuevoCadete= _mapper.Map<Cadete>(cadeteView);
-            Ayuda nuevaAyuda=new Ayuda();
-            nuevaAyuda.EditarCadetes(nuevoCadete);
+           Cadete cadeteEditado=_mapper.Map<Cadete>(cadeteView);
+           Ayuda nuevaAyuda=new Ayuda();
+           nuevaAyuda.EscribirEnCSV(cadeteEditado);
+           return RedirectToAction("MostrarCadetesPrincipal");
+        }else{
+            return RedirectToAction("Error");
         }
         
-        return RedirectToAction("MostrarCadetesPrincipal");
+        
     }
 
     [HttpGet]
     [Route("/Cadete/EditarCadetes/{Id}")]    
-    public RedirectToActionResult EditarCadetes(string Id)
+    public IActionResult EditarCadetes(string Id)
     {
-        
+        int idC=Convert.ToInt32(Id);
+        Ayuda nuevaAyuda=new Ayuda();
+        Cadete nuevoCadete=nuevaAyuda.devolverCadetePorID(Id);
+        CadetesViewModels cadeteView=_mapper.Map<CadetesViewModels>(nuevoCadete);
+        return View(cadeteView);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

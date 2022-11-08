@@ -1,8 +1,11 @@
 namespace TP5.Models;
+using TP5.ViewModels;
 using System;
 using System.Collections.Generic;
+using AutoMapper;
 using System.Linq;
 using System.Web;
+
 
 class Ayuda
 {
@@ -14,7 +17,7 @@ class Ayuda
     public List<Cadete> DevolverCadetes()
     {
         List<Cadete> ListadoCadetes = new List<Cadete>();
-        string[] lineas = File.ReadAllLines(@"C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\CSV\Cadetes.csv");
+        string[] lineas = File.ReadAllLines(@"CSV\Cadetes.csv");
 
         foreach (var i in lineas)
         {
@@ -28,7 +31,7 @@ class Ayuda
     }
 
     public void GuardarCadete(Cadete cadete){
-        string path= @"C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\CSV\Cadetes.csv";
+        string path= @"CSV\Cadetes.csv";
         List<string>cadena=new List<string>();
         cadena.Add(cadete.Id+","+cadete.Nombre+","+cadete.Direccion+","+cadete.Telefono1);
         File.AppendAllLines(path,cadena);
@@ -58,31 +61,67 @@ class Ayuda
         File.AppendAllLines(path,ListaCadenas);
     }
 
-    public void EditarCadetes(Cadete cadete){
-        string path=@"CSV\Cadetes.csv";
-        List<string>ListadoCadenas=new List<string>();
-        string[] contenidoActual = File.ReadAllLines(path);
+    public void EliminarLinea(int id){
+        string path=@"CSV/Cadetes.csv";
+        List<Cadete> ListadoCadetes = new List<Cadete>();
+        ListadoCadetes = DevolverCadetes();
         File.Delete(path);
-        string cadena2;
-        for (int i = 0; i < contenidoActual.Length; i++)
+        StreamWriter sw = new StreamWriter(path);
+        foreach (var cad in ListadoCadetes)
         {
-            string[]linea=contenidoActual[i].Split(",");
-            int Id=Convert.ToInt32(linea[0]);
-            cadena2=Id+","+cadete.Nombre+","+cadete.Direccion+","+cadete.Telefono1
-            if(Id==cadete.Id){
-                ListadoCadenas.Add(cadena2);   
-            }else{
-                ListadoCadenas.Add(contenidoActual[i])
+            if(cad.Id==id)
+            {
+                sw.WriteLine(cad.Id + "," + cad.Nombre + "," + cad.Direccion + "," + cad.Telefono1);
             }
         }
-        File.AppendAllLines(path,ListadoCadenas);
+        sw.Close();
     }
 
-    public Cadete devolverCadete(string id){
-        int Id=Convert.ToInt32(id);
-        string path=@"CSV\Cadetes.csv";
+    public void EscribirEnCSV(Cadete cadete){
+        string path=@"C:\TALLER 2\tl2-tp5-2022-Tahiel24\TP5\CSV\Cadetes.csv";
+        List<Cadete>listado=new List<Cadete>();
+        List<string>listadoNuevo=new List<string>();
+        listado=DevolverCadetes();
+        File.Delete(path);
+        foreach(var item in listado){
+            if(cadete.Id==item.Id){
+                listadoNuevo.Add(cadete.Id+","+cadete.Nombre+","+cadete.Direccion+","+cadete.Telefono1);
+            }else{
+                listadoNuevo.Add(item.Id+","+item.Nombre+","+item.Direccion+","+item.Telefono1);
+            }
+        }
+        File.AppendAllLines(path,listadoNuevo);
+    }
+
+    public void EditarCadete(string cadena)
+    {
+        string path=@"CSV/Cadetes.csv";
+        List<string>ListaCadenas=new List<string>();
         string[] contenidoActual = File.ReadAllLines(path);
-        
+        File.Delete(path);
+        string[]cadenaSeparada= cadena.Split(",");
+        int idC=Convert.ToInt32(cadenaSeparada[0]);
+        for (int i = 0; i < contenidoActual.Length ; i++)
+        {
+            string[] lineSepar=contenidoActual[i].Split(",");
+            int id=Convert.ToInt32(lineSepar[0]);
+            if(idC==id){
+                ListaCadenas.Add(cadenaSeparada[0]+","+cadenaSeparada[1]+","+cadenaSeparada[2]+","+cadenaSeparada[3]);
+            }else{
+                ListaCadenas.Add(lineSepar[0]+","+lineSepar[1]+","+lineSepar[2]+","+lineSepar[3]);
+            }
+        }
+        File.AppendAllLines(path,ListaCadenas);
+    }
+
+    public Cadete devolverCadetePorID(string id){
+        int ID=Convert.ToInt32(id);
+        List<Cadete>listado=new List<Cadete>();
+        listado=DevolverCadetes();
+        IEnumerable<Cadete> busqueda=from d in listado where d.Id==ID select d; 
+        List<Cadete> asList= busqueda.ToList();
+        Cadete nuevo=asList[0];
+        return nuevo;
     }
 }
 
