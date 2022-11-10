@@ -12,5 +12,7 @@ public class MappingProfile: Profile
     {
         CreateMap<CadetesViewModels, Cadete>();
         CreateMap<Cadete, CadetesViewModels>();
+        CreateMap<PedidosViewModels, Pedido>();
+        CreateMap<Pedido, PedidosViewModels>();
     }
 }

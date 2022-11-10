@@ -22,5 +22,38 @@ public class PedidoController: Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    
+    public IActionResult mostrarPedidosPrincipal(){
+        AuxiliarPedido aux= new AuxiliarPedido();
+        List<Pedido>listaPedido= aux.devolverListadoPedidos();
+        return View(listaPedido);
+    }
+
+    [HttpPost]
+    public RedirectToActionResult AgregarPedidos(PedidosViewModels pedidoView)
+    {
+        if(ModelState.IsValid){
+            Pedido nuevoPedido= _mapper.Map<Pedido>(pedidoView);
+            AuxiliarPedido aux= new AuxiliarPedido();
+            aux.AgregarPedido(nuevoPedido);
+            return RedirectToAction("mostrarPedidosPrincipal");
+        }else{
+            return RedirectToAction("Error");
+        }
+        
+        
+    }
+
+    public IActionResult AltaPedido()
+    {
+        return View();
+    }
+
+    [HttpGet]
+    public RedirectToActionResult EliminarPedidos(string id)
+    {
+        int idC=Convert.ToInt32(id);
+        AuxiliarPedido aux= new AuxiliarPedido();
+        aux.EliminarPedidos(idC);
+        return RedirectToAction("mostrarPedidosPrincipal");
+    }
 }

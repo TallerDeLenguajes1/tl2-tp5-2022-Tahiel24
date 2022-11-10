@@ -11,23 +11,22 @@ public class Pedido
     private string obs;
     private int cliente;
     private bool estado;
-    private int cadete;
+
 
     
     public int Nro { get => nro; set => nro = value; }
     public string Obs { get => obs; set => obs = value; }
     public int Cliente { get => cliente; set => cliente = value; }
     public bool Estado { get => estado; set => estado = value; }
-    public int Cadete{get => cadete; set => cadete=value; }
 
 
-    public Pedido(int nroPed,string obs,bool est, int idCliente, int idCadete)
+    public Pedido(int nroPed,string obs, int idCliente,bool est)
     {
         Nro = nroPed;
         Obs = obs;
         Cliente = idCliente;
         Estado = true;
-        Cadete=idCadete;
+
     }
 
     public Pedido()

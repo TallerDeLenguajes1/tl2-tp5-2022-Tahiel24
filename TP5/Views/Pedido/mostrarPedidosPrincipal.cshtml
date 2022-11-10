@@ -1,0 +1,44 @@
+@model List<TP5.Models.Pedido>
+@using TP5.ViewModels;
+@{
+    TP5.Models.CadeteListado CadeLis= new TP5.Models.CadeteListado();
+}
+
+@{
+    ViewData["Title"] = "Alta de pedidos";
+}
+
+<main>
+    <section class="contenedor-boton">
+        <ul>
+            <li>
+                <a asp-controller="Pedido" asp-action="AltaPedido">Alta de pedidos</a>
+            </li>
+        </ul>
+    </section>
+
+    <h3 class="listado-titulo">Listado de pedidos</h3>
+
+    <table class="tabla-primera">
+        <tr>
+            <th>ID del Pedido</th>
+            <th>Observacion</th>
+            <th>ID del Cliente</th>
+            <th>Estado del pedido</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nro</td>
+                <td>@item.Obs</td>
+                <td>@item.Cliente</td>
+                @if(item.Estado){
+                    <td>Entregado</td>
+                }else{
+                    <td>No entregado</td>
+                }
+                <td><a asp-controller="Pedido" asp-action="EliminarPedidos" asp-route-id="@item.Nro">Eliminar</a></td>
+            </tr>
+        }
+    </table>
+</main>

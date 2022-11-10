@@ -33,7 +33,7 @@ class Ayuda
     public void GuardarCadete(Cadete cadete){
         string path= @"CSV\Cadetes.csv";
         List<string>cadena=new List<string>();
-        cadena.Add(cadete.Id+","+cadete.Nombre+","+cadete.Direccion+","+cadete.Telefono1);
+        cadena.Add(cadete+","+cadete.Nombre+","+cadete.Direccion+","+cadete.Telefono1);
         File.AppendAllLines(path,cadena);
     }
 
@@ -62,7 +62,7 @@ class Ayuda
     }
 
     public void EliminarLinea(int id){
-        string path=@"CSV/Cadetes.csv";
+        string path=@"CSV\Cadetes.csv";
         List<Cadete> ListadoCadetes = new List<Cadete>();
         ListadoCadetes = DevolverCadetes();
         File.Delete(path);

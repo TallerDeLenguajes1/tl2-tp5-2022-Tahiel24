@@ -1,0 +1,22 @@
+@model TP5.ViewModels.PedidosViewModels
+@{
+    ViewData["Title"] = "Alta de Pedidos";
+}
+
+@{
+TP5.Models.CadeteListado CadeLis= new TP5.Models.CadeteListado();
+}
+
+<h3>Alta de cadetes</h3>
+
+<form asp-controller="Pedido" asp-action="AgregarPedidos" method="post">
+    <label asp-for="@Model.Obs"> Observacion: 
+        <input type="text" asp-for="@Model.Obs">
+    </label>
+    <label asp-for="@Model.Cliente">Id del cliente:
+        <input type="number" asp-for="@Model.Cliente">
+    </label>
+    <input type="submit" value="Enviar">
+</form>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> } 
