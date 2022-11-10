@@ -17,6 +17,7 @@ public class PedidosViewModels
     public int Cliente {get;set;}
 
     public string prueba{get; set;}
+    public string nuevo {get; set;}
     public bool Estado {get;set;}
 
     public PedidosViewModels(int nro, string obs,int cliente){
