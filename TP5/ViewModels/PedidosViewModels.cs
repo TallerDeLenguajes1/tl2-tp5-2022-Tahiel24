@@ -16,7 +16,7 @@ public class PedidosViewModels
     [Required][Display(Name="IDCliente del Pedido")]
     public int Cliente {get;set;}
 
-
+    public string prueba{get; set;}
     public bool Estado {get;set;}
 
     public PedidosViewModels(int nro, string obs,int cliente){
