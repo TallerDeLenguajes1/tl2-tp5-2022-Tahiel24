@@ -108,7 +108,12 @@ public class FuncionesDB
         SqliteCommand recuperar= new SqliteCommand("SELECT * FROM Cadete WHERE Id_cadete=@cad");
         recuperar.Parameters.AddWithValue("@cad", ID);
         var query=recuperar.ExecuteReader();
-        Cadete nuevoCadete= new Cadete(query.GetInt32(0), query.GetString(1), query.GetString(2),query.GetString(3),Convert.ToInt32(query.GetString(4)));
+        Cadete nuevoCadete=new Cadete();
+        while(query.Read())
+        {
+            nuevoCadete= new Cadete(query.GetInt32(0), query.GetString(1), query.GetString(2),query.GetString(3),Convert.ToInt32(query.GetString(4)));
+        } 
+        conexion.Close();
         return nuevoCadete;
     }
 }
