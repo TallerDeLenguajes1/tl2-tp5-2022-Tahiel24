@@ -26,9 +26,9 @@ TP5.Models.CadeteListado CadeLis= new TP5.Models.CadeteListado();
                 <option value="@item">@item</option>
             }
         </select>
-    <label asp-for="@Model.Obs">Estado: </label>
-        <input asp-for="@Model.Obs" type="text">
-    <label asp-for="@Model.id_cadete">ID del cliente:  </label>
+    <label asp-for="@Model.EstadoNuevo">Estado: </label>
+        <input asp-for="@Model.EstadoNuevo" type="text">
+    <label asp-for="@Model.id_cadete">ID del cadete:  </label>
         <select asp-for="@Model.id_cadete">
             @foreach (var item in listaCadete)
             {
