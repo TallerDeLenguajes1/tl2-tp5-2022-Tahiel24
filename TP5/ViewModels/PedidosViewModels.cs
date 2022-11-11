@@ -15,10 +15,26 @@ public class PedidosViewModels
 
     [Required][Display(Name="IDCliente del Pedido")]
     public int Cliente {get;set;}
-
-    public string prueba{get; set;}
-    public string nuevo {get; set;}
     public bool Estado {get;set;}
+    public int id_cadete{get; set;}
+    [Required][Display(Name ="Estado del pedido")]
+    public string EstadoNuevo{get; set;}
+
+    public PedidosViewModels(int nroPed,string obs, int idCliente,string est, int id_cadete){
+        Nro = nroPed;
+        Obs = obs;
+        Cliente = idCliente;
+        EstadoNuevo = est;
+        this.id_cadete=id_cadete;
+    }
+
+    public PedidosViewModels(string obs, int idCliente,string est, int id_cadete)
+    {
+        Obs = obs;
+        Cliente = idCliente;
+        EstadoNuevo = est;
+        this.id_cadete=id_cadete;
+    }
 
     public PedidosViewModels(int nro, string obs,int cliente){
         Nro = nro;
