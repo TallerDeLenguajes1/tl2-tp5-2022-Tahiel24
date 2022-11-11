@@ -104,6 +104,7 @@ public class FuncionesDB
 
     public Cadete DevolverCadetePorId(int ID)
     {
+        int probar;
         conexion.Open();
         SqliteCommand recuperar= new SqliteCommand("SELECT * FROM Cadete WHERE Id_cadete=@cad");
         recuperar.Parameters.AddWithValue("@cad", ID);
