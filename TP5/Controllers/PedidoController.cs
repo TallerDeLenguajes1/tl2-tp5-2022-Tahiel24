@@ -52,8 +52,8 @@ public class PedidoController: Controller
     public RedirectToActionResult EliminarPedidos(string id)
     {
         int idC=Convert.ToInt32(id);
-        AuxiliarPedido aux= new AuxiliarPedido();
-        aux.EliminarPedidos(idC);
+        FuncionesDB funciones= new FuncionesDB();
+        funciones.EliminarPedidosBD(idC);
         return RedirectToAction("mostrarPedidosPrincipal");
     }
 }

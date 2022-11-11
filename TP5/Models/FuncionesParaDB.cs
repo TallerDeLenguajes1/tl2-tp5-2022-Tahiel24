@@ -187,5 +187,24 @@ public class FuncionesDB
             Console.WriteLine("Error: " + ex.Message);
             conexion.Close();
         }
+
+        
+    }
+
+    public void EliminarPedidosBD(int ID)
+    {
+        conexion.Open();
+        SqliteCommand delete = new SqliteCommand("DELETE FROM Pedidos WHERE Nro = @id", conexion);
+        delete.Parameters.AddWithValue("@id", ID);
+        try
+        {
+            delete.ExecuteReader();
+            conexion.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            conexion.Close();
+        }
     }
 }
