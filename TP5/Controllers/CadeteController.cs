@@ -23,9 +23,9 @@ public class CadeteController : Controller
 
     public IActionResult MostrarCadetesPrincipal()
     {
-        Ayuda nuevaAyuda=new Ayuda();
+        FuncionesDB funciones= new FuncionesDB();
         List<Cadete>listaCadetes=new List<Cadete>();
-        listaCadetes=nuevaAyuda.DevolverCadetes();
+        listaCadetes=funciones.DevolverListadoCadetes();
         return View(listaCadetes);
     }
 
@@ -51,8 +51,8 @@ public class CadeteController : Controller
     {
         if(ModelState.IsValid){
             Cadete nuevoCadete= _mapper.Map<Cadete>(cadeteView);
-            Ayuda nuevaAyuda=new Ayuda();
-            nuevaAyuda.GuardarCadete(nuevoCadete);
+            FuncionesDB funciones=new FuncionesDB();
+            funciones.SubirDatosBD(nuevoCadete);
         }
         
         return RedirectToAction("MostrarCadetesPrincipal");
