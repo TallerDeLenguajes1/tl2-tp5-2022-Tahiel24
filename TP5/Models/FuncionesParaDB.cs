@@ -49,6 +49,34 @@ public class FuncionesDB
         return listaID;
     }
 
+    public List<int> recuperarIDcadetes()
+    {
+        List<int> listaID = new List<int>();
+        conexion.Open();
+        SqliteCommand select= new SqliteCommand("SELECT Id_cadete FROM Cadete", conexion);
+        var query= select.ExecuteReader();
+        while(query.Read())
+        {
+            listaID.Add(query.GetInt32(0));
+        }
+        conexion.Close();
+        return listaID;
+    }
+
+    public  List<int> recuperarIDclientes()
+    {
+        List<int> listaID = new List<int>();
+        conexion.Open();
+        SqliteCommand select = new SqliteCommand("SELECT Id_cliente FROM Clientes", conexion);
+        var query=select.ExecuteReader();
+        while(query.Read())
+        {
+            listaID.Add(query.GetInt32(0));
+        }
+        conexion.Close();
+        return listaID;
+    }
+
     //Funcion para agregar cadetes a la BD
     public void SubirDatosBD(Cadete cadete)
     {
@@ -139,5 +167,25 @@ public class FuncionesDB
         }
         conexion.Close();
         return listado;
+    }
+
+    public void subirPedidosBD(Pedido pedido)
+    {
+        conexion.Open();
+        SqliteCommand insertar = new SqliteCommand("INSERT INTO Pedidos (Obs, Cliente, Estado, Id_cadete) VALUES (@obs, @cli, @est, @id)", conexion);
+        insertar.Parameters.AddWithValue("@obs", pedido.Obs);
+        insertar.Parameters.AddWithValue("@cli", pedido.Cliente);
+        insertar.Parameters.AddWithValue("@est", pedido.Estado);
+        insertar.Parameters.AddWithValue("@id", pedido.id_cadete);
+        try
+        {
+            insertar.ExecuteReader();
+            conexion.Close();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+            conexion.Close();
+        }
     }
 }

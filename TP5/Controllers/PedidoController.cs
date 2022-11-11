@@ -33,8 +33,8 @@ public class PedidoController: Controller
     {
         if(ModelState.IsValid){
             Pedido nuevoPedido= _mapper.Map<Pedido>(pedidoView);
-            AuxiliarPedido aux= new AuxiliarPedido();
-            aux.AgregarPedido(nuevoPedido);
+            FuncionesDB funciones= new FuncionesDB();
+            funciones.subirPedidosBD(nuevoPedido);
             return RedirectToAction("mostrarPedidosPrincipal");
         }else{
             return RedirectToAction("Error");

@@ -4,18 +4,37 @@
 }
 
 @{
+TP5.Models.FuncionesDB funciones= new TP5.Models.FuncionesDB();
+List<int>listaCliente=funciones.recuperarIDclientes();
+List<int>listaCadete= funciones.recuperarIDcadetes();
+}
+
+@{
 TP5.Models.CadeteListado CadeLis= new TP5.Models.CadeteListado();
 }
 
-<h3>Alta de cadetes</h3>
+<h3>Alta de Pedidos</h3>
 
 <form asp-controller="Pedido" asp-action="AgregarPedidos" method="post">
     <label asp-for="@Model.Obs"> Observacion: 
         <input type="text" asp-for="@Model.Obs">
     </label>
-    <label asp-for="@Model.Cliente">Id del cliente:
-        <input type="number" asp-for="@Model.Cliente">
-    </label>
+    <label asp-for="@Model.Cliente">ID del cliente:  </label>
+        <select asp-for="@Model.Cliente">
+            @foreach (var item in listaCliente)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+    <label asp-for="@Model.Obs">Estado: </label>
+        <input asp-for="@Model.Obs" type="text">
+    <label asp-for="@Model.id_cadete">ID del cliente:  </label>
+        <select asp-for="@Model.id_cadete">
+            @foreach (var item in listaCadete)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
     <input type="submit" value="Enviar">
 </form>
 
