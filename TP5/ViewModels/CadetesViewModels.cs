@@ -8,7 +8,8 @@ namespace TP5.ViewModels;
 
 public class CadetesViewModels
 {
-    public int Id;
+    //public int Id
+    public int Id{get; set;}
 
     [Required]
     [StringLength(100)]
@@ -25,6 +26,9 @@ public class CadetesViewModels
     [Display(Name = "Telefono del Cadete")]
     public string Telefono1 { get; set; }
 
+    public int Id_Cadeteria{get; set;}
+
+
     public CadetesViewModels(int id, string nombre, string dire, string tel)
     {
 
@@ -32,6 +36,22 @@ public class CadetesViewModels
         Direccion = dire;
         Telefono1 = tel;
         Id = id;
+    }
+
+    public CadetesViewModels(int id, string nombre, string dire, string tel, int idCad){
+        Nombre = nombre;
+        Direccion = dire;
+        Telefono1 = tel;
+        Id = id;
+        Id_Cadeteria=idCad;
+    }
+
+    public CadetesViewModels(string nombre, string dire, string tel, int idCad)
+    {
+        Nombre = nombre;
+        Direccion = dire;
+        Telefono1 = tel;
+        Id_Cadeteria=idCad;
     }
 
     public CadetesViewModels()
