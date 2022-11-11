@@ -23,8 +23,8 @@ public class PedidoController: Controller
     }
 
     public IActionResult mostrarPedidosPrincipal(){
-        AuxiliarPedido aux= new AuxiliarPedido();
-        List<Pedido>listaPedido= aux.devolverListadoPedidos();
+        FuncionesDB funciones= new FuncionesDB();
+        List<Pedido>listaPedido= funciones.DevolverListadoPedidos();
         return View(listaPedido);
     }
 

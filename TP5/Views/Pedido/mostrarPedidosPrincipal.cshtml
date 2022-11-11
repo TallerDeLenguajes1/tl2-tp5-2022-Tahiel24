@@ -32,11 +32,7 @@
                 <td>@item.Nro</td>
                 <td>@item.Obs</td>
                 <td>@item.Cliente</td>
-                @if(item.Estado){
-                    <td>Entregado</td>
-                }else{
-                    <td>No entregado</td>
-                }
+                <td>@item.EstadoNuevo</td>
                 <td><a asp-controller="Pedido" asp-action="EliminarPedidos" asp-route-id="@item.Nro">Eliminar</a></td>
             </tr>
         }

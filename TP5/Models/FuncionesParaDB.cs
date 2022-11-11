@@ -124,4 +124,20 @@ public class FuncionesDB
         conexion.Close();
         return nuevoCadete;
     }
+
+    //Pedidos
+    public List<Pedido>DevolverListadoPedidos()
+    {
+        List<Pedido> listado = new List<Pedido>();
+        conexion.Open();
+        SqliteCommand select = new SqliteCommand("SELECT * FROM Pedidos", conexion);
+        var query = select.ExecuteReader();
+        while (query.Read())
+        {
+            Pedido  nuevoPedido= new Pedido(query.GetInt32(0), query.GetString(1), query.GetInt32(2),query.GetString(3), query.GetInt32(4));
+            listado.Add(nuevoPedido);
+        }
+        conexion.Close();
+        return listado;
+    }
 }
