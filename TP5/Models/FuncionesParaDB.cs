@@ -10,22 +10,23 @@ using Microsoft.Data.Sqlite;
 
 public class FuncionesDB
 {
-    public FuncionesDB(){}
+    public FuncionesDB() { }
 
     //Cadetes
-    static string connectionString= $"Data Source=BD/PedidosDB";
-    static public SqliteConnection conexion= new SqliteConnection(connectionString);
+    static string connectionString = $"Data Source=BD/PedidosDB";
+    static public SqliteConnection conexion = new SqliteConnection(connectionString);
 
     //Funcion para devolver un listado de cadetes
-    public List<Cadete> DevolverListadoCadetes(){
-        List<Cadete>listado=new List<Cadete>();
+    public List<Cadete> DevolverListadoCadetes()
+    {
+        List<Cadete> listado = new List<Cadete>();
         conexion.Open();
-        SqliteCommand select= new SqliteCommand("SELECT * FROM Cadete", conexion);
-        var query=select.ExecuteReader();
-        while(query.Read())
+        SqliteCommand select = new SqliteCommand("SELECT * FROM Cadete", conexion);
+        var query = select.ExecuteReader();
+        while (query.Read())
         {
-                                    //ID                //Nombre        //Direccion         //Telefono      //ID_cadeteria
-            Cadete nuevo= new(query.GetInt32(0), query.GetString(1), query.GetString(2),query.GetString(3),Convert.ToInt32(query.GetString(4)));
+            //ID                //Nombre        //Direccion         //Telefono      //ID_cadeteria
+            Cadete nuevo = new(query.GetInt32(0), query.GetString(1), query.GetString(2), query.GetString(3), Convert.ToInt32(query.GetString(4)));
             listado.Add(nuevo);
         }
         conexion.Close();
@@ -35,13 +36,13 @@ public class FuncionesDB
     //Funcion que recupera los id de las cadeterias
     public List<int> recuperarIDcadeteria()
     {
-        List<int>listaID=new List<int>();
+        List<int> listaID = new List<int>();
         conexion.Open();
-        SqliteCommand select=new SqliteCommand("SELECT Id_cadeteria FROM Cadeteria",conexion);
-        var query=select.ExecuteReader();
-        while(query.Read())
+        SqliteCommand select = new SqliteCommand("SELECT Id_cadeteria FROM Cadeteria", conexion);
+        var query = select.ExecuteReader();
+        while (query.Read())
         {
-                        //ID
+            //ID
             listaID.Add(query.GetInt32(0));
         }
         conexion.Close();
@@ -49,35 +50,40 @@ public class FuncionesDB
     }
 
     //Funcion para agregar cadetes a la BD
-    public void SubirDatosBD(Cadete cadete){
+    public void SubirDatosBD(Cadete cadete)
+    {
         conexion.Open();
-        SqliteCommand insertar= new SqliteCommand("INSERT INTO Cadete (Nombre, Direccion, Telefono, id_cadeteria) VALUES (@nom, @dire, @tel, @id_cad)",conexion);
+        SqliteCommand insertar = new SqliteCommand("INSERT INTO Cadete (Nombre, Direccion, Telefono, id_cadeteria) VALUES (@nom, @dire, @tel, @id_cad)", conexion);
         insertar.Parameters.AddWithValue("@nom", cadete.Nombre);
-        insertar.Parameters.AddWithValue("@dire", cadete.Direccion );
+        insertar.Parameters.AddWithValue("@dire", cadete.Direccion);
         insertar.Parameters.AddWithValue("@tel", cadete.Telefono1);
         insertar.Parameters.AddWithValue("@id_cad", cadete.Id_Cadeteria);
-        try{
+        try
+        {
             insertar.ExecuteReader();
             conexion.Close();
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
-            Console.WriteLine("Error: "+ex.Message);
+            Console.WriteLine("Error: " + ex.Message);
             conexion.Close();
         }
     }
 
     //Funcion para eliminar cadetes de la BD
-    public void EliminarDatosBD(int ID){
+    public void EliminarDatosBD(int ID)
+    {
         conexion.Open();
-        SqliteCommand delete= new SqliteCommand("DELETE FROM Cadete WHERE Id_cadete=@id", conexion);
+        SqliteCommand delete = new SqliteCommand("DELETE FROM Cadete WHERE Id_cadete=@id", conexion);
         delete.Parameters.AddWithValue("@id", ID);
         try
         {
             delete.ExecuteReader();
             conexion.Close();
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
-            Console.WriteLine("Error: "+ex.Message);
+            Console.WriteLine("Error: " + ex.Message);
             conexion.Close();
         }
     }
@@ -86,8 +92,8 @@ public class FuncionesDB
     public void EditarCadetes(Cadete cadete)
     {
         conexion.Open();
-        SqliteCommand editar= new SqliteCommand("UPDATE Cadete SET Nombre=@nom, Direccion=@dir, Telefono=@tel, id_cadeteria=@id_cad WHERE Id_Cadete=@cad", conexion);
-        editar.Parameters.AddWithValue("@cad", cadete.Id);
+        SqliteCommand editar = new SqliteCommand("UPDATE Cadete SET Nombre=@nom, Direccion = @dir, Telefono = @tel, id_cadeteria=@id_cad WHERE Id_Cadete = $cad", conexion);
+        editar.Parameters.AddWithValue("$cad", cadete.Id);
         editar.Parameters.AddWithValue("@nom", cadete.Nombre);
         editar.Parameters.AddWithValue("@dir", cadete.Direccion);
         editar.Parameters.AddWithValue("@tel", cadete.Telefono1);
@@ -96,8 +102,10 @@ public class FuncionesDB
         {
             editar.ExecuteReader();
             conexion.Close();
-        }catch(Exception ex){
-            Console.WriteLine("Error: "+ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
             conexion.Close();
         }
     }
@@ -105,14 +113,14 @@ public class FuncionesDB
     public Cadete DevolverCadetePorId(int ID)
     {
         conexion.Open();
-        SqliteCommand recuperar= new SqliteCommand("SELECT * FROM Cadete WHERE Id_cadete=@cad");
-        recuperar.Parameters.AddWithValue("@cad", ID);
-        var query=recuperar.ExecuteReader();
-        Cadete nuevoCadete=new Cadete();
+        SqliteCommand select= new SqliteCommand("SELECT * FROM Cadete WHERE Id_cadete = $id", conexion);
+        select.Parameters.AddWithValue("$id", ID);
+        Cadete nuevoCadete = new Cadete();
+        var query= select.ExecuteReader();
         while(query.Read())
         {
-            nuevoCadete= new Cadete(query.GetInt32(0), query.GetString(1), query.GetString(2),query.GetString(3),Convert.ToInt32(query.GetString(4)));
-        } 
+            nuevoCadete = new Cadete(query.GetInt32(0), query.GetString(1), query.GetString(2), query.GetString(3), Convert.ToInt32(query.GetString(4)));
+        }
         conexion.Close();
         return nuevoCadete;
     }

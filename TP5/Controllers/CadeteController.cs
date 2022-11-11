@@ -60,7 +60,7 @@ public class CadeteController : Controller
     }
 
     [HttpPost]
-    public RedirectToActionResult EditarCadetes(CadetesViewModels cadeteView)
+    public RedirectToActionResult EditCad(CadetesViewModels cadeteView)
     {
         if (ModelState.IsValid)
         {
