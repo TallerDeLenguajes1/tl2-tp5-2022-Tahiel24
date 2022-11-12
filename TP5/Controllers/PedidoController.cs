@@ -56,4 +56,28 @@ public class PedidoController: Controller
         funciones.EliminarPedidosBD(idC);
         return RedirectToAction("mostrarPedidosPrincipal");
     }
+
+    [HttpGet]
+    [Route("/Pedido/EditarPedidos/{Id}")]
+    public IActionResult EditarPedidos(string id)
+    {
+        int idC = Convert.ToInt32(id);
+        FuncionesDB funciones = new FuncionesDB();
+        Pedido nuevoPedido=funciones.DevolverPedidoPorId(idC);
+        PedidosViewModels pedidosView=_mapper.Map<PedidosViewModels>(nuevoPedido);
+        return View(pedidosView);
+    }
+
+    [HttpPost]
+    public RedirectToActionResult EditPed(PedidosViewModels pedidoView)
+    {
+        if(ModelState.IsValid){
+            Pedido pedidoEditado= _mapper.Map<Pedido>(pedidoView);
+            FuncionesDB funciones= new FuncionesDB();
+            funciones.EditarPedidosDB(pedidoEditado);
+            return RedirectToAction("mostrarPedidosPrincipal");
+        }else{
+            return RedirectToAction("Error");
+        }
+    }
 }

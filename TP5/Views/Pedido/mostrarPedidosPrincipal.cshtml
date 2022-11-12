@@ -33,7 +33,7 @@
                 <td>@item.Obs</td>
                 <td>@item.Cliente</td>
                 <td>@item.EstadoNuevo</td>
-                <td><a asp-controller="Pedido" asp-action="EliminarPedidos" asp-route-id="@item.Nro">Eliminar</a></td>
+                <td><a asp-controller="Pedido" asp-action="EliminarPedidos" asp-route-id="@item.Nro">Eliminar</a></td><td><a asp-controller="Pedido" asp-action="EditarPedidos" asp-route-id="@item.Nro">Editar</a></td>
             </tr>
         }
     </table>
