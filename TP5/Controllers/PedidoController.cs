@@ -28,6 +28,7 @@ public class PedidoController: Controller
         return View(listaPedido);
     }
 
+    
     [HttpPost]
     public RedirectToActionResult AgregarPedidos(PedidosViewModels pedidoView)
     {
@@ -35,10 +36,9 @@ public class PedidoController: Controller
             Pedido nuevoPedido= _mapper.Map<Pedido>(pedidoView);
             FuncionesDB funciones= new FuncionesDB();
             funciones.subirPedidosBD(nuevoPedido);
-            return RedirectToAction("mostrarPedidosPrincipal");
-        }else{
-            return RedirectToAction("Error");
         }
+
+        return RedirectToAction("mostrarPedidosPrincipal");
         
         
     }

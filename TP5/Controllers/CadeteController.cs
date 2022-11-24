@@ -29,13 +29,6 @@ public class CadeteController : Controller
         return View(listaCadetes);
     }
 
-    public IActionResult IntermedioBorrar()
-    {
-        Ayuda nuevaAyuda = new Ayuda();
-        List<Cadete> listaCadetes = new List<Cadete>();
-        listaCadetes = nuevaAyuda.DevolverCadetes();
-        return View(listaCadetes);
-    }
 
     [HttpGet]
     public RedirectToActionResult EliminarCadetes(string Id)

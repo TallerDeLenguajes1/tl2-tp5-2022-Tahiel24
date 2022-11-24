@@ -169,14 +169,14 @@ public class FuncionesDB
         return listado;
     }
 
-    public void subirPedidosBD(Pedido pedido)
+    public void EditarPedidosDB(Pedido pedido)
     {
         conexion.Open();
-        SqliteCommand insertar = new SqliteCommand("UPDATE Pedidos SET Obs = @obs, Cliente = @cli, Estado = @est, Id_cadete = @id_cad WHERE Nro = $id", conexion);
-        insertar.Parameters.AddWithValue("$id", pedido.Nro);
+        SqliteCommand insertar = new SqliteCommand("UPDATE Pedidos SET Obs = @obs, Cliente = @cli, Estado = @est, Id_cadete = @id_cad WHERE Nro = @num", conexion);
+        insertar.Parameters.AddWithValue("@num", pedido.Nro);
         insertar.Parameters.AddWithValue("@obs", pedido.Obs);
         insertar.Parameters.AddWithValue("@cli", pedido.Cliente);
-        insertar.Parameters.AddWithValue("@est", pedido.Estado);
+        insertar.Parameters.AddWithValue("@est", pedido.EstadoNuevo);
         insertar.Parameters.AddWithValue("@id_cad", pedido.id_cadete);
         try
         {
@@ -208,14 +208,14 @@ public class FuncionesDB
             conexion.Close();
         }
     }
-    public void EditarPedidosDB(Pedido pedido)
+    public void subirPedidosBD(Pedido pedidoSubir)
     {
         conexion.Open();
-        SqliteCommand insertar = new SqliteCommand("INSERT INTO Pedidos (Obs, Cliente, Estado , Id_cadete) VALUES (@obs, @cli, @est, @id_cad)", conexion);
-        insertar.Parameters.AddWithValue("@obs",pedido.Obs );
-        insertar.Parameters.AddWithValue("@cli", pedido.Cliente);
-        insertar.Parameters.AddWithValue("@tel", pedido.Estado);
-        insertar.Parameters.AddWithValue("@id_cad", pedido.id_cadete);
+        SqliteCommand insertar = new SqliteCommand("INSERT INTO Pedidos (Obs, Cliente, Estado, Id_cadete) VALUES (@obs, @cli, @est, @id_cad)", conexion);
+        insertar.Parameters.AddWithValue("@obs", pedidoSubir.Obs);
+        insertar.Parameters.AddWithValue("@cli", pedidoSubir.Cliente);
+        insertar.Parameters.AddWithValue("@est", pedidoSubir.EstadoNuevo);
+        insertar.Parameters.AddWithValue("@id_cad", pedidoSubir.id_cadete);
         try
         {
             insertar.ExecuteReader();
@@ -231,13 +231,13 @@ public class FuncionesDB
     public Pedido DevolverPedidoPorId(int ID)
     {
         conexion.Open();
-        SqliteCommand select= new SqliteCommand("SELECT * FROM Pedidos WHERE Nro = $id", conexion);
-        select.Parameters.AddWithValue("$id", ID);
+        SqliteCommand select= new SqliteCommand("SELECT * FROM Pedidos WHERE Nro = @id", conexion);
+        select.Parameters.AddWithValue("@id", ID);
         Pedido nuevoPedido= new Pedido();
         var query= select.ExecuteReader();
         while(query.Read())
         {
-            nuevoPedido = new Pedido(query.GetInt32(0), query.GetString(1), query.GetInt32(2), query.GetString(3),query.GetInt32(4));
+            nuevoPedido = new Pedido(query.GetInt32(0), query.GetString(1), query.GetInt32(2), query.GetString(3), query.GetInt32(4));
         }
         conexion.Close();
         return nuevoPedido;

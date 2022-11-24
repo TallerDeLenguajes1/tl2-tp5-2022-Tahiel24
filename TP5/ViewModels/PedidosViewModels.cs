@@ -8,64 +8,39 @@ namespace TP5.ViewModels;
 
 public class PedidosViewModels
 {
-    public int Nro { get; private set; }
+    public int Nro { get; set; }
 
     [Required][StringLength(100)][Display(Name="Observaciones del Pedido")]
     public string Obs{ get; set;}
 
     [Required][Display(Name="IDCliente del Pedido")]
     public int Cliente {get;set;}
-    public bool Estado {get;set;}
+
+    [Required]
     public int id_cadete{get; set;}
-    [Required][Display(Name ="Estado del pedido")]
+
+    [Required][StringLength(100)][Display(Name ="Estado del pedido")]
     public string EstadoNuevo{get; set;}
 
-    public PedidosViewModels(int nroPed,string obs, int idCliente,string est, int id_cadete){
+    public PedidosViewModels(int nroPed,string obs, int idCliente,string est, int id_cad){
         Nro = nroPed;
         Obs = obs;
         Cliente = idCliente;
         EstadoNuevo = est;
-        this.id_cadete=id_cadete;
+        id_cadete=id_cad;
     }
 
-    public PedidosViewModels(string obs, int idCliente,string est, int id_cadete)
+    public PedidosViewModels(string obs, int idCliente,string est, int id_cad)
     {
         Obs = obs;
         Cliente = idCliente;
         EstadoNuevo = est;
-        this.id_cadete=id_cadete;
+        id_cadete=id_cad;
     }
 
-    public PedidosViewModels(int nro, string obs,int cliente){
-        Nro = nro;
-        Obs = obs;
-        Cliente = cliente;
-        Estado = true;
-    }
 
-    public PedidosViewModels(){
-        string[]lineas=File.ReadAllLines(@"CSV\Pedidos.csv");
-        if(lineas.Length==0)
-        {
-            this.Nro=0;
-        }else{
-            string[] lineaSeparada= lineas[lineas.Length-1].Split(",");
-            this.Nro=(Convert.ToInt32(lineaSeparada[0]))+1;
-        }
-    }
-
-    public PedidosViewModels(string obs,int cliente)
+    public PedidosViewModels()
     {
-        Obs = obs;
-        Cliente = cliente;
-        Estado = true;
-        string[]lineas=File.ReadAllLines(@"CSV\Pedidos.csv");
-        if(lineas.Length==0)
-        {
-            this.Nro=0;
-        }else{
-            string[] lineaSeparada= lineas[lineas.Length-1].Split(",");
-            this.Nro=(Convert.ToInt32(lineaSeparada[0]))+1;
-        }
+
     }
 }

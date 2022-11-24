@@ -51,26 +51,7 @@ public class Cadete
     }
 }
 
-public class CadeteListado
-{
-    public List<Cadete> listadoCadete {get; set;}
-    public CadeteListado()
-    {
-        Ayuda nuevaAyuda= new Ayuda();
-        listadoCadete=nuevaAyuda.DevolverCadetes();
-    }
 
-    public Cadete devolverCadetePorID(string id){
-        int ID=Convert.ToInt32(id);
-        List<Cadete>listado=new List<Cadete>();
-        Ayuda nuevaAyuda=new Ayuda();
-        listado=nuevaAyuda.DevolverCadetes();
-        IEnumerable<Cadete> busqueda=from d in listado where d.Id==ID select d; 
-        List<Cadete> asList= busqueda.ToList();
-        Cadete nuevo=asList[0];
-        return nuevo;
-    }
-}
 
 
 
