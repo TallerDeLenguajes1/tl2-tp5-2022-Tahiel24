@@ -34,8 +34,7 @@ public class CadeteController : Controller
     public RedirectToActionResult EliminarCadetes(string Id)
     {
         int idC = Convert.ToInt32(Id);
-        FuncionesDB funciones = new FuncionesDB();
-        funciones.EliminarDatosBD(idC);
+        _cadeteRepository.Eliminar(idC);
         return RedirectToAction("MostrarCadetesPrincipal");
     }
 
@@ -45,8 +44,7 @@ public class CadeteController : Controller
         if (ModelState.IsValid)
         {
             Cadete nuevoCadete = _mapper.Map<Cadete>(cadeteView);
-            FuncionesDB funciones = new FuncionesDB();
-            funciones.SubirDatosBD(nuevoCadete);
+            _cadeteRepository.Subir(nuevoCadete);
         }
 
         return RedirectToAction("MostrarCadetesPrincipal");
@@ -58,8 +56,7 @@ public class CadeteController : Controller
         if (ModelState.IsValid)
         {
             Cadete cadeteEditado = _mapper.Map<Cadete>(cadeteView);
-            FuncionesDB funciones = new FuncionesDB();
-            funciones.EditarCadetes(cadeteEditado);
+            _cadeteRepository.Editar(cadeteEditado);
             return RedirectToAction("MostrarCadetesPrincipal");
         }
         else
@@ -75,8 +72,7 @@ public class CadeteController : Controller
     public IActionResult EditarCadetes(string Id)
     {
         int idC = Convert.ToInt32(Id);
-        FuncionesDB funciones = new FuncionesDB();
-        Cadete nuevoCadete = funciones.DevolverCadetePorId(idC);
+        _cadeteRepository.RetornaCadetePorID(idC);
         CadetesViewModels cadeteView = _mapper.Map<CadetesViewModels>(nuevoCadete);
         return View(cadeteView);
     }
