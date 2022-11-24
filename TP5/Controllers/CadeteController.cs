@@ -4,16 +4,19 @@ using TP5.Models;
 using Microsoft.Extensions.Logging;
 using TP5.ViewModels;
 using AutoMapper;
+using TP5.Repositorios;
 
 public class CadeteController : Controller
 {
     private readonly ILogger<CadeteController> _logger;
     private readonly IMapper _mapper;
+    private readonly ICadeteRepository _cadeteRepository;
 
-    public CadeteController(ILogger<CadeteController> logger, IMapper mapper)
+    public CadeteController(ILogger<CadeteController> logger, IMapper mapper, ICadeteRepository cadeteRepo)
     {
         _logger = logger;
         _mapper = mapper;
+        _cadeteRepository=cadeteRepo;
     }
 
     public IActionResult CadeteRecibir()
@@ -23,10 +26,7 @@ public class CadeteController : Controller
 
     public IActionResult MostrarCadetesPrincipal()
     {
-        FuncionesDB funciones = new FuncionesDB();
-        List<Cadete> listaCadetes = new List<Cadete>();
-        listaCadetes = funciones.DevolverListadoCadetes();
-        return View(listaCadetes);
+        return View(_cadeteRepository.DevolverTodo());
     }
 
 

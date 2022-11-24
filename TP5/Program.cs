@@ -1,13 +1,19 @@
 using AutoMapper;
+using TP5.Repositorios;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Mapper
 var automapper = new MapperConfiguration(item => item.AddProfile(new MappingProfile()));
 IMapper mapper = automapper.CreateMapper();
 
 builder.Services.AddSingleton(mapper);
 
+//Services
+
+builder.Services.AddTransient<ICadeteRepository, CadeteRepository>();
 
 var app = builder.Build();
 
