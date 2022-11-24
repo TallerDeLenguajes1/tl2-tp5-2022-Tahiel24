@@ -72,7 +72,7 @@ public class CadeteController : Controller
     public IActionResult EditarCadetes(string Id)
     {
         int idC = Convert.ToInt32(Id);
-        _cadeteRepository.RetornaCadetePorID(idC);
+        Cadete nuevoCadete=_cadeteRepository.RetornaCadetePorID(idC);
         CadetesViewModels cadeteView = _mapper.Map<CadetesViewModels>(nuevoCadete);
         return View(cadeteView);
     }

@@ -4,16 +4,19 @@ using TP5.Models;
 using Microsoft.Extensions.Logging;
 using TP5.ViewModels;
 using AutoMapper;
+using TP5.Repositorios;
 
 public class PedidoController: Controller
 {
     private readonly ILogger<PedidoController> _logger;
     private readonly IMapper _mapper;
+    private readonly IPedidoRepository _pedidoRepository;
 
-    public PedidoController(ILogger<PedidoController> logger, IMapper mapper)
+    public PedidoController(ILogger<PedidoController> logger, IMapper mapper, IPedidoRepository pedidoRepo)
     {
         _logger = logger;
         _mapper=mapper;
+        _pedidoRepository=pedidoRepo;
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -23,9 +26,7 @@ public class PedidoController: Controller
     }
 
     public IActionResult mostrarPedidosPrincipal(){
-        FuncionesDB funciones= new FuncionesDB();
-        List<Pedido>listaPedido= funciones.DevolverListadoPedidos();
-        return View(listaPedido);
+        return View(_pedidoRepository.DevolverTodo());
     }
 
     
@@ -34,8 +35,7 @@ public class PedidoController: Controller
     {
         if(ModelState.IsValid){
             Pedido nuevoPedido= _mapper.Map<Pedido>(pedidoView);
-            FuncionesDB funciones= new FuncionesDB();
-            funciones.subirPedidosBD(nuevoPedido);
+            _pedidoRepository.Subir(nuevoPedido);
         }
 
         return RedirectToAction("mostrarPedidosPrincipal");
@@ -52,8 +52,7 @@ public class PedidoController: Controller
     public RedirectToActionResult EliminarPedidos(string id)
     {
         int idC=Convert.ToInt32(id);
-        FuncionesDB funciones= new FuncionesDB();
-        funciones.EliminarPedidosBD(idC);
+        _pedidoRepository.Eliminar(idC);
         return RedirectToAction("mostrarPedidosPrincipal");
     }
 
@@ -62,8 +61,7 @@ public class PedidoController: Controller
     public IActionResult EditarPedidos(string id)
     {
         int idC = Convert.ToInt32(id);
-        FuncionesDB funciones = new FuncionesDB();
-        Pedido nuevoPedido=funciones.DevolverPedidoPorId(idC);
+        Pedido nuevoPedido=_pedidoRepository.DevolverPedidoPorId(idC);
         PedidosViewModels pedidosView=_mapper.Map<PedidosViewModels>(nuevoPedido);
         return View(pedidosView);
     }
@@ -73,8 +71,7 @@ public class PedidoController: Controller
     {
         if(ModelState.IsValid){
             Pedido pedidoEditado= _mapper.Map<Pedido>(pedidoView);
-            FuncionesDB funciones= new FuncionesDB();
-            funciones.EditarPedidosDB(pedidoEditado);
+            _pedidoRepository.Editar(pedidoEditado);
             return RedirectToAction("mostrarPedidosPrincipal");
         }else{
             return RedirectToAction("Error");

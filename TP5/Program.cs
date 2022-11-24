@@ -14,6 +14,7 @@ builder.Services.AddSingleton(mapper);
 //Services
 
 builder.Services.AddTransient<ICadeteRepository, CadeteRepository>();
+builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 
 var app = builder.Build();
 
